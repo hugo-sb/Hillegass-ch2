@@ -10,10 +10,13 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var textField: NSTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        textField.stringValue = ""
     }
 
     override var representedObject: AnyObject? {
@@ -23,5 +26,22 @@ class ViewController: NSViewController {
     }
 
 
+    @IBAction func seed(sender: AnyObject) {
+        var tm : time_t = 0
+        srandom(UInt32(time(&tm)))
+        textField.stringValue = "Generator seeded"
+    }
+    
+    @IBAction func generate(sender: AnyObject) {
+        let generated = (random() % 100) + 1
+        NSLog("generated = \(generated)")
+        textField.integerValue = generated
+    }
+    
+    @IBAction func generate2(sender: AnyObject) {
+        let generated = arc4random_uniform(100) + 1
+        NSLog("generated = \(generated)")
+        textField.integerValue = Int(generated)
+    }
 }
 
